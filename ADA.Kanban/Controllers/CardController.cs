@@ -32,7 +32,7 @@ namespace ADA.Kanban.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"An error ocurred - Card > Get() > ErrorMessage: [{ex.Message}]");
-                throw new Exception($"An error ocurred - Card > Get() > ErrorMessage: [{ex.Message}]");
+                return BadRequest();
             }
         }
 
@@ -71,7 +71,7 @@ namespace ADA.Kanban.Controllers
                     return NotFound($"Card with Id '{id}' not found!");
 
                 if (id != card.Id)
-                    return BadRequest($"Card Id '{id}' AND Id body '{card.Id}' must be the same!");
+                    return BadRequest($"Parameter Id '{id}' AND Body Id '{card.Id}' must be the same!");
 
                 await _cardService.UpdateCardAsync(id, card);
 
@@ -101,7 +101,7 @@ namespace ADA.Kanban.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"An error ocurred - Card > Delete() > ErrorMessage [{ex.Message}]");
-                throw new Exception($"An error ocurred - Card > Delete() > ErrorMessage [{ex.Message}]");
+                return BadRequest();
             }
         }
     }
